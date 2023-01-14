@@ -1,9 +1,30 @@
 const expresss = require('express');
 const app = expresss();
+
 app.locals.pretty = true;
+
 app.set('view engine', 'pug');
 app.set('views', './views');
+
 app.use(expresss.static('public'));
+app.use(expresss.json());
+app.use(expresss.urlencoded({ extended: true }));
+
+app.get('/form', function(req, res) {
+    res.render('form');
+});
+
+app.get('/form_receiver', function(req, res) {
+    res.send('Hello, GET');
+    // var title = req.query.title;
+    // var description = req.query.description;
+    // res.send(title + ',' + description);
+});
+app.post('/form_receiver', function(req, res, next) {
+    var title = req.body.title;
+    var description = req.body.description;
+    res.send(title + ',' + description);
+});
 
 app.get('/topic/:id', function(req, res) {
     var topics = [
@@ -12,9 +33,9 @@ app.get('/topic/:id', function(req, res) {
         'Express is ...' 
     ];
     var output = `
-        <a href="/topic?id=0">JavaScript</a><br>
-        <a href="/topic?id=1">Nodejs</a><br>
-        <a href="/topic?id=2">Express</a><br>
+        <a href="/topic/0">JavaScript</a><br>
+        <a href="/topic/1">Nodejs</a><br>
+        <a href="/topic/2">Express</a><br>
         ${topics[req.params.id]}
     `
     res.send(output);
