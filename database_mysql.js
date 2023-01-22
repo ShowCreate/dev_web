@@ -1,6 +1,5 @@
 // get the client
 const mysql = require('mysql2');
-const { result, values } = require('underscore');
 
 // create the connection to database
 const connection = mysql.createConnection({
