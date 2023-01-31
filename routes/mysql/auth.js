@@ -1,3 +1,5 @@
+const { serializeUser } = require('passport');
+
 module.exports = function(passport) {
     const crypto = require('crypto');
     const connection = require('../../config/mysql/db')();
@@ -58,10 +60,10 @@ module.exports = function(passport) {
         res.render('auth/account');
     });
 
-    // Delete account Page
-    route.get('/deleteAccount', function(req, res) {
+    // DeleteUser Page
+    route.get('/deleteUser', function(req, res) {
         var sql = 'DELETE FROM users WHERE authId=?'
-        connection.query(sql, [authId], function(err, results) {
+        connection.query(sql, [req.user.authId], function(err, results) {
             req.logout(function(err) {
                 req.session.save(function() {
                     res.redirect('/welcome');    
