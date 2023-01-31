@@ -1,3 +1,5 @@
+const e = require('express');
+
 const app = require('./config/mysql/express')();
 
 const passport = require('./config/mysql/passport')(app);
@@ -18,10 +20,10 @@ app.get('/welcome', function(req, res) {
         res.send(`
             <h1>Welcome</h1>
             <a href="/auth/login">Login</a>
-            <a href="/auth/register">Register</a>
+            <a href="/auth/account">Account</a>
         `);
     }
-});    
+});
 
 const auth = require('./routes/mysql/auth')(passport);
 app.use('/auth', auth);

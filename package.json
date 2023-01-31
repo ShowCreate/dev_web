@@ -17,7 +17,6 @@
     "mysql2": "^3.0.1",
     "passport": "^0.6.0",
     "passport-local": "^1.0.0",
-    "pug": "^3.0.2",
-    "underscore": "^1.13.6"
+    "pug": "^3.0.2"
   }
 }

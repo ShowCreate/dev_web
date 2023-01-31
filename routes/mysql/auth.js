@@ -26,8 +26,8 @@ module.exports = function(passport) {
     });
 
 
-    // Register Page
-    route.post('/register', function(req, res) {
+    // Account Page
+    route.post('/account', function(req, res) {
         var pwd = req.body.password;
         const salted = crypto.randomBytes(128).toString('base64');
         const hashPassword = crypto.pbkdf2Sync(pwd, salted, 3, 64, 'sha256').toString('hex');
@@ -54,9 +54,21 @@ module.exports = function(passport) {
         });
     });
 
-    route.get('/register', function(req, res) {
-        res.render('auth/register');
+    route.get('/account', function(req, res) {
+        res.render('auth/account');
+    });
+
+    // Delete account Page
+    route.get('/deleteAccount', function(req, res) {
+        var sql = 'DELETE FROM users WHERE authId=?'
+        connection.query(sql, [authId], function(err, results) {
+            req.logout(function(err) {
+                req.session.save(function() {
+                    res.redirect('/welcome');    
+                });
+            });
+        });
     });
 
     return route;
-};
+}
