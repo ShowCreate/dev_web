@@ -8,7 +8,7 @@ app.use('/board', board);
 
 // Index Page
 app.get('/', function(req, res) {
-    res.redirect('/welcome');
+    res.render('index');
 });
 
 app.get('/welcome', function(req, res) {

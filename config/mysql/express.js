@@ -9,6 +9,7 @@ module.exports = function() {
     app.set('views', './views/mysql');
     app.set('view engine', 'pug');
     
+    app.use(express.static('public'))
     app.use(bodyParser.urlencoded({ extended: false }));
     app.use(session({
         secret              : 'What!@#123',
@@ -22,6 +23,7 @@ module.exports = function() {
             database: 'nodedb'
         })
     }));
-    
+
+
     return app;
 }

@@ -36,7 +36,9 @@ module.exports = function(passport) {
             username: req.body.username,
             password: hashPassword,
             salt: salted,
-            displayName: req.body.displayName
+            displayName: req.body.displayName,
+            phoneNumber: req.body.phoneNumber,
+            address: req.body.address
         }
         var sql = 'INSERT INTO users SET ?';
         connection.query(sql, [user], function(err, results) {
