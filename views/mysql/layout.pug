@@ -4,9 +4,9 @@ html
         meta(charset='utf-8')
     body 
         h1
-            a(href='/topic') Server Side JavaScript 
-        ul 
-            each topic in topics 
-                li
-                    a(href='/topic/'+topic.id)= topic.title
+            p
+                a(href='/board/list') 게시판
+            p
+                a(href='/welcome') 처음으로
+
         block content

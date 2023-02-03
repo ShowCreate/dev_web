@@ -1,5 +1,3 @@
-const { serializeUser } = require('passport');
-
 module.exports = function(passport) {
     const crypto = require('crypto');
     const connection = require('../../config/mysql/db')();

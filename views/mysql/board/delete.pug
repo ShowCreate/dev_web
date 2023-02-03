@@ -1,0 +1,8 @@
+extends ../layout
+block content
+    article
+        h1= 'Delete? '+board.title
+        form(action='/board/'+board.id+'/delete' method='post')
+            p
+                input(type='submit' value='YES')
+        a(href='/board/'+board.id) no

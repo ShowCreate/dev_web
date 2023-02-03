@@ -4,7 +4,7 @@ module.exports = function() {
     host: 'localhost',
     user: 'root',
     password: '0000',
-    database: 'o2'
+    database: 'nodedb'
     });
     connection.connect();
 

@@ -19,7 +19,7 @@ module.exports = function() {
             port    : 3306,
             user    : 'root',
             password: '0000',
-            database: 'o2'
+            database: 'nodedb'
         })
     }));
     

@@ -1,0 +1,21 @@
+doctype html 
+html 
+    head 
+        meta(charset='utf-8')
+        title= title 
+        link(rel='stylesheet' href='/stylesheets/style.css')
+    body 
+        h1= title 
+        form(action="/board/edit" method="post")
+                table(border="1")
+                    tr 
+                        td 제목
+                        td 
+                            input(type="text" name="title" id="title")
+                    tr 
+                        td 내용
+                        td
+                            textarea(name="content" id="content" cols="30" rows="10")
+                    tr 
+                        td(colspan="2")
+                            button(type="submit") 글쓰기

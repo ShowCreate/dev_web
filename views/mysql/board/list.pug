@@ -1,0 +1,35 @@
+doctype html
+html 
+    head 
+        meta(charset='utf-8')
+        title= title
+        link(rel='stylesheet' href='/stylesheets/style.css')
+    body 
+        h1= title 
+        table(border="1")
+            tr 
+                td 번호
+                td 제목
+                td 글쓴이
+                td 등록일
+                td 수정일
+                td 조회수
+
+            - for (var i = (page * page_num) - page_num; i < (page * page_num); i++) 
+                - if (i > length) i++
+                - else var data = rows[i]
+                    tr 
+                        td= i + 1
+                        td
+                            a(href=`/board/read/${data.idx}`)= data.title
+                        td= data.name 
+                        td= data.regdate 
+                        td= data.modidate
+                        td= data.view
+
+            tr 
+                td(colspan="6")
+                    - for (var j = 0; j < rows.length / page_num; j++)
+                        a(href=`/board/list/${j + 1}`)= j + 1
+                
+        a(href="/board/write") 글쓰기
