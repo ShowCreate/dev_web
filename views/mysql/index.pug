@@ -1,40 +1,45 @@
 doctype html
-head
-  meta(charset='utf-8')
-  meta(name='viewport', content='width=device-width, initial-scale=1, shrink-to-fit=no')
-  meta(name='description', content='')
-  meta(name='author', content='')
-  title Bare - Start Bootstrap Template
-  link(rel='icon', type='/public/image/x-icon', href='/public/assets/favicon.ico')
-  // 코어 CSS
-  link(href='/public/css/styles.css', rel='stylesheet')
-// Responsive navbar
-nav.navbar.navbar-expand-lg.navbar-dark.bg-dark
-  .container
-    a.navbar-brand(href='#') &#xBA54;&#xC778; &#xD398;&#xC774;&#xC9C0;
-    button.navbar-toggler(type='button', data-bs-toggle='collapse', data-bs-target='#navbarSupportedContent', aria-controls='navbarSupportedContent', aria-expanded='false', aria-label='Toggle navigation')
-      span.navbar-toggler-icon
-    #navbarSupportedContent.collapse.navbar-collapse
-      ul.navbar-nav.ms-auto.mb-2.mb-lg-0
-        li.nav-item
-          a.nav-link.active(aria-current='page', href='#') &#xBA54;&#xC778; &#xD398;&#xC774;&#xC9C0;
-        li.nav-item
-          a.nav-link(href='#') &#xAC8C;&#xC2DC;&#xD310;(&#xACF5;&#xC0AC;&#xC911;)
-        li.nav-item.dropdown
-          a#navbarDropdown.nav-link.dropdown-toggle(href='#', role='button', data-bs-toggle='dropdown', aria-expanded='false') &#xB85C;&#xADF8;&#xC778; &#xAD00;&#xB828;
-          ul.dropdown-menu.dropdown-menu-end(aria-labelledby='navbarDropdown')
-            li
-              a.dropdown-item(href='/views/mysql/auth/account.pug') &#xD68C;&#xC6D0;&#xAC00;&#xC785;
-            li
-              a.dropdown-item(href='/views/mysql/auth/login.pug') &#xB85C;&#xADF8;&#xC778;
-            li
-              hr.dropdown-divider
-            li
-              a.dropdown-item(href='#') &#xD504;&#xB85C;&#xD544;
-// 메인 페이지
-.container
-  .text-center.mt-5
-    h1 &#xC774;&#xAC70;&#xC2A8; &#xBA54;&#xC778; &#xD398;&#xC774;&#xC9C0;
-    p.lead &#xBB50;&#xB97C; &#xB123;&#xC744;&#xC9C0; &#xBAA8;&#xB974;&#xACA0;&#xB2E4;
-// 부트스트랩 JS
-script(src='https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js')
+html 
+  head
+    meta(charset='utf-8')
+    meta(name='viewport', content='width=device-width, initial-scale=1, shrink-to-fit=no')
+    meta(name='description', content='')
+    meta(name='author', content='')
+    title 로그인, 회원가입 페이지
+    link(rel='icon', type='/public/image/x-icon', href='/public/assets/favicon')
+    //- 코어 CSS
+    link(rel='stylesheet' href='/public/css/styles.css')
+
+  body 
+    //- Responsive navbar
+    nav(class="navbar navbar-expand-lg navbar-dark bg-dark")
+      div(class="container")
+        a(class="navbar-brand" href='#') 메인 페이지
+        button(class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation")
+          span(class="navbar-toggler-icon")
+        div(class="collapse navbar-collapse" id="navbarSupportedContent")
+          ul(class = "navbar-nav ms-auto mb-2 mb-lg-0")
+            li(class="nav-item")
+              a(class="nav-link active" aria-current="page" href="#") 메인 페이지
+            li(class="nav-item")
+              a(class="nav-link" href="#") 게시판
+            li(class="nav-item dropdown")
+              a(class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false") 로그인 관련
+              ul(class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown")
+                li 
+                  a(class="dropdown-item" href="auth/account") 회원가입
+                li 
+                  a(a class="dropdown-item" href="auth/login") 로그인
+                li 
+                  hr(class="dropdown-divider")
+                li 
+                  a(class="dropdown-item" href="#") 프로필
+
+    //- 메인 페이지
+    div(class="container")
+      div(class="text-center mt-5")
+        h1 이거슨 메인 페이지
+        p(class="lead") 뭐를 넣을지 모르겠다
+
+    //- 부트스트랩 JS
+    script(src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js")
