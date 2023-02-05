@@ -40,14 +40,14 @@ module.exports = function() {
 
     // 글 읽기(Read)
     route.get('/read/:idx', function(req, res) {
-        var name = req.user.displayName;
         var idx = req.params.idx;
+
         var sql = "UPDATE board SET view = view + 1 WHERE idx=?";
         connection.query(sql,[idx], function(err, row) {});
 
         var sql = "SELECT idx, name, title, content, date_format(modidate,'%Y-%m-%d %H:%i:%s') modidate, " +
         "date_format(regdate,'%Y-%m-%d %H:%i:%s') regdate, view FROM board WHERE idx=?";
-        connection.query(sql,[idx], function(err, row) {
+        connection.query(sql, [idx], function(err, row) {
             if(err) {
                 console.log(err);
             }
@@ -70,10 +70,22 @@ module.exports = function() {
             res.render('/board/read/'+idx);
         });
     });
-
+    
     // 글 삭제(Delete)
+    route.get('/delete', function(req, res) {
+        var idx = req.params.idx;
+
+        var sql = "SELECT idx, title FROM board WHERE idx=?"
+        connection.query(sql, [idx], function(err, row) {
+            if(err) {
+                console.log(err);
+            }
+            res.render('board/delete', {title: "글 삭제", row: row[0]});    
+        });
+    }); 
+
     route.post('/delete',function(req, res) {
-        var idx = req.body.idx;
+        var idx = req.params.idx;
 
         var sql = "DELETE FROM board WHERE idx=?";
         connection.query(sql, [idx], function(err, result) {

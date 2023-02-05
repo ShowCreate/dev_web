@@ -26,9 +26,9 @@ html
             tr 
                 td(colspan="4")
                     p
-                        a(href="/board/#{row.idx}/edit") 글 수정
-                        | ---
-                        - if( === row.name)
-                            a(href="/board/delete") 글 삭제
-                        | ---
                         a(href="/board/list") 목록
+                        | ---
+                        a(href="/board/#{row.idx}/edit") 글 수정
+                        - if(row.name)
+                            | ---
+                            a(href="/board/delete") 글 삭제
