@@ -30,6 +30,7 @@ html
             tr 
                 td(colspan="6")
                     - for (var j = 0; j < rows.length / page_num; j++)
+                        | [
                         a(href=`/board/list/${j + 1}`)= j + 1
-                
+                        | ]
         a(href="/board/write") 글쓰기

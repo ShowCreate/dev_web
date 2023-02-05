@@ -1,0 +1,34 @@
+doctype html 
+html 
+    head 
+        title= title 
+        link(rel="stylesheet" href='/stylesheets/style.css')
+    body 
+        h1= title 
+        table(border ="1")
+            tr 
+                td 등록일
+                td= row.regdate  
+                td 변경일
+                td= row.modidate 
+            tr 
+                td 제목
+                td(colspan="3")= row.title
+            tr 
+                td 내용
+                td(colspan="3")= row.content
+            tr
+                td 작성자
+                td(colspan="3")= row.name
+            tr 
+                td 조회수
+                td(colspan="3")= row.view 
+            tr 
+                td(colspan="4")
+                    p
+                        a(href="/board/#{row.idx}/edit") 글 수정
+                        | ---
+                        - if( === row.name)
+                            a(href="/board/delete") 글 삭제
+                        | ---
+                        a(href="/board/list") 목록

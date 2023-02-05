@@ -40,14 +40,20 @@ module.exports = function() {
 
     // 글 읽기(Read)
     route.get('/read/:idx', function(req, res) {
+        var name = req.user.displayName;
         var idx = req.params.idx;
-        var sql = "select idx, name, title, content, date_format(modidate,'%Y-%m-%d %H:%i:%s') modidate, " +
-            "date_format(regdate,'%Y-%m-%d %H:%i:%s') regdate,hit from board where idx=?";
-            conn.query(sql,[idx], function(err, row) {
-                if(err) console.error(err);
-                res.render('board/read', {title: "글 보기", row: row[0]});
-            });
+        var sql = "UPDATE board SET view = view + 1 WHERE idx=?";
+        connection.query(sql,[idx], function(err, row) {});
+
+        var sql = "SELECT idx, name, title, content, date_format(modidate,'%Y-%m-%d %H:%i:%s') modidate, " +
+        "date_format(regdate,'%Y-%m-%d %H:%i:%s') regdate, view FROM board WHERE idx=?";
+        connection.query(sql,[idx], function(err, row) {
+            if(err) {
+                console.log(err);
+            }
+            res.render('board/read', {title: "글 보기", row: row[0]});
         });
+    });
 
     
     // 글 수정(Update)
@@ -56,12 +62,12 @@ module.exports = function() {
         var content = req.body.content;
 
         var sql = "UPDATE board SET (title, content, modidate) VALUES (?,?,now())";
-        conn.query(sql,[title, content], function(err, result)
+        connection.query(sql,[title, content], function(err, result)
         {
             if(err) {
                 console.log(err);
             }
-            res.redirect('/board/read/'+idx);
+            res.render('/board/read/'+idx);
         });
     });
 
