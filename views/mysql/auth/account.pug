@@ -1,14 +1,21 @@
-h1 회원가입
-form(action='/auth/account' method='post')
-  p
-    input(type='text', name='username' placeholder='id')
-  p
-    input(type='password', name='password' placeholder='password')
-  p
-    input(tpye='text', name='displayName' placeholder='이름')
-  p 
-    input(type='text', name='phoneNumber' placeholder='전화번호(-제외)')
-  p 
-    input(type='text', name='address' placeholder='주소')
-  p
-    input(type='submit')
+extends ../layout
+block content 
+
+  .container
+    .text-center.mt-5
+      h1 회원가입
+      form(action='/auth/account' method='post')
+        p
+          input(type='text', name='username' placeholder='id')
+        p
+          input(type='password', name='password' placeholder='password')
+        p
+          input(tpye='text', name='displayName' placeholder='이름')
+        p 
+          input(type='text', name='phoneNumber' placeholder='전화번호(-제외)')
+        p 
+          input(type='text', name='address' placeholder='주소')
+        p
+          input(type='submit')
+
+        

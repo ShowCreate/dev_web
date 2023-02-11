@@ -6,7 +6,7 @@ module.exports = function(passport) {
     // Login Page
     route.post('/login', passport.authenticate('local',
         {
-            successRedirect : '/welcome',
+            successRedirect : '/',
             failureRedirect : '/auth/login',
             failureFlash    : false
         }
@@ -20,7 +20,7 @@ module.exports = function(passport) {
     route.get('/logout', function(req, res) {
         req.logout(function(err) {
             req.session.save(function() {
-                res.redirect('/welcome');    
+                res.redirect('/');    
             });
         });
     });
@@ -28,10 +28,10 @@ module.exports = function(passport) {
 
     // Account Page
     route.post('/account', function(req, res) {
-        var pwd = req.body.password;
+        let pwd = req.body.password;
         const salted = crypto.randomBytes(128).toString('base64');
         const hashPassword = crypto.pbkdf2Sync(pwd, salted, 3, 64, 'sha256').toString('hex');
-        var user = {
+        let user = {
             authId:'local:'+req.body.username,
             username: req.body.username,
             password: hashPassword,
@@ -40,7 +40,7 @@ module.exports = function(passport) {
             phoneNumber: req.body.phoneNumber,
             address: req.body.address
         }
-        var sql = 'INSERT INTO users SET ?';
+        let sql = 'INSERT INTO users SET ?';
         connection.query(sql, [user], function(err, results) {
             if (err) {
                 console.log(err);
@@ -49,7 +49,7 @@ module.exports = function(passport) {
             else {
                 req.login(user, function(err) {
                     req.session.save(function() {
-                        res.redirect('/welcome');
+                        res.redirect('/');
                     });
                 });
             }
@@ -62,11 +62,11 @@ module.exports = function(passport) {
 
     // DeleteUser Page
     route.get('/deleteUser', function(req, res) {
-        var sql = 'DELETE FROM users WHERE authId=?'
+        let sql = 'DELETE FROM users WHERE authId=?'
         connection.query(sql, [req.user.authId], function(err, results) {
             req.logout(function(err) {
                 req.session.save(function() {
-                    res.redirect('/welcome');    
+                    res.redirect('/');    
                 });
             });
         });

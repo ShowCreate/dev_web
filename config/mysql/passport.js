@@ -14,7 +14,7 @@ module.exports = function(app) {
 
     passport.deserializeUser(function(id, done) {
         console.log('deserializeUser', id);
-        var sql = 'SELECT * FROM users WHERE authId=?';
+        let sql = 'SELECT * FROM users WHERE authId=?';
         connection.query(sql, [id], function(err, results) {
             if (err) {
                 console.log(err);
@@ -28,14 +28,14 @@ module.exports = function(app) {
 
     passport.use(new LocalStrategy(
         function(username, password, done) {
-            var uname = username;
-            var pwd = password;
-            var sql = 'SELECT * FROM users WHERE authId=?';
+            let uname = username;
+            let pwd = password;
+            let sql = 'SELECT * FROM users WHERE authId=?';
             connection.query(sql, ['local:'+uname], function(err, results) {
                 if (err) {
                     return done('There is no user.');
                 }
-                var user = results[0];
+                let user = results[0];
                 if (crypto.pbkdf2Sync(pwd, user.salt, 3, 64, 'sha256').toString('hex') === user.password) {
                     console.log('LocalStrategy', user);
                     done(null, user);

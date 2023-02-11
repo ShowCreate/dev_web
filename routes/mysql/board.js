@@ -8,9 +8,9 @@ module.exports = function() {
     });
 
     route.get('/list/:page', function(req, res) {
-        var page = req.params.page;
+        let page = req.params.page;
 
-        var sql = "SELECT idx, title, name, date_format(modidate,'%Y-%m-%d %H:%i:%s') modidate, date_format(regdate,'%Y-%m-%d %H:%i:%s') regdate, view FROM board";
+        let sql = "SELECT idx, title, name, date_format(modidate,'%Y-%m-%d %H:%i:%s') modidate, date_format(regdate,'%Y-%m-%d %H:%i:%s') regdate, view FROM board";
         connection.query(sql, function (err, results) {
             if (err) {
                 console.log(err);
@@ -25,11 +25,11 @@ module.exports = function() {
     }); 
 
     route.post('/write', function(req,res) {
-        var name = req.user.displayName;
-        var title = req.body.title;
-        var content = req.body.content;
+        let name = req.user.displayName;
+        let title = req.body.title;
+        let content = req.body.content;
         
-        var sql = "INSERT INTO board(name, title, content, regdate, modidate, view) VALUES(?,?,?,now(),now(),0)";
+        let sql = "INSERT INTO board(name, title, content, regdate, modidate, view) VALUES(?,?,?,now(),now(),0)";
         connection.query(sql, [name, title, content], function (err, results) {
             if (err) {
             console.log(err);
@@ -40,12 +40,12 @@ module.exports = function() {
 
     // 글 읽기(Read)
     route.get('/read/:idx', function(req, res) {
-        var idx = req.params.idx;
+        let idx = req.params.idx;
 
-        var sql = "UPDATE board SET view = view + 1 WHERE idx=?";
+        let sql = "UPDATE board SET view = view + 1 WHERE idx=?";
         connection.query(sql,[idx], function(err, row) {});
 
-        var sql = "SELECT idx, name, title, content, date_format(modidate,'%Y-%m-%d %H:%i:%s') modidate, " +
+        sql = "SELECT idx, name, title, content, date_format(modidate,'%Y-%m-%d %H:%i:%s') modidate, " +
         "date_format(regdate,'%Y-%m-%d %H:%i:%s') regdate, view FROM board WHERE idx=?";
         connection.query(sql, [idx], function(err, row) {
             if(err) {
@@ -58,10 +58,10 @@ module.exports = function() {
     
     // 글 수정(Update)
     route.post('/edit',function(req,res) {
-        var title = req.body.title;
-        var content = req.body.content;
+        let title = req.body.title;
+        let content = req.body.content;
 
-        var sql = "UPDATE board SET (title, content, modidate) VALUES (?,?,now())";
+        let sql = "UPDATE board SET (title, content, modidate) VALUES (?,?,now())";
         connection.query(sql,[title, content], function(err, result)
         {
             if(err) {
@@ -73,9 +73,9 @@ module.exports = function() {
     
     // 글 삭제(Delete)
     route.get('/delete', function(req, res) {
-        var idx = req.params.idx;
+        let idx = req.params.idx;
 
-        var sql = "SELECT idx, title FROM board WHERE idx=?"
+        let sql = "SELECT idx, title FROM board WHERE idx=?"
         connection.query(sql, [idx], function(err, row) {
             if(err) {
                 console.log(err);
@@ -85,9 +85,9 @@ module.exports = function() {
     }); 
 
     route.post('/delete',function(req, res) {
-        var idx = req.params.idx;
+        let idx = req.params.idx;
 
-        var sql = "DELETE FROM board WHERE idx=?";
+        let sql = "DELETE FROM board WHERE idx=?";
         connection.query(sql, [idx], function(err, result) {
             if(err) {
                 console.log(err);

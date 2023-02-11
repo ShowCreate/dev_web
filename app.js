@@ -8,7 +8,12 @@ app.use('/board', board);
 
 // Index Page
 app.get('/', function(req, res) {
-    res.render("index");
+    if(req.user) {
+        res.render('index2', {name: req.user.displayName})
+    }
+    else {
+        res.render('index');
+    }
 });
 
 app.get('/welcome', function(req, res) {
@@ -34,6 +39,6 @@ app.get('/welcome', function(req, res) {
     }
 });
 
-app.listen(3003, function() {
-    console.log('Connected 3003 port!');
+app.listen(3000, function() {
+    console.log('서버가 실행됩니다. http://127.0.0.1:3000');
 });

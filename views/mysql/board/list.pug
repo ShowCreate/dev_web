@@ -3,9 +3,8 @@ html
     head 
         meta(charset='utf-8')
         title= title
-        link(rel='stylesheet' href='/stylesheets/style.css')
     body 
-        h1= title 
+        h1= title
         table(border="1")
             tr 
                 td 번호
@@ -34,3 +33,5 @@ html
                         a(href=`/board/list/${j + 1}`)= j + 1
                         | ]
         a(href="/board/write") 글쓰기
+        | 
+        a(href="/") 메인 페이지

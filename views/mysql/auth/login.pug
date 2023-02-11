@@ -1,8 +1,14 @@
-h1 로그인
-form(action='/auth/login' method='post')
-  p
-    input(type='text', name='username' placeholder='username')
-  p
-    input(type='password', name='password' placeholder='password')
-  p
-    input(type='submit')
+extends ../layout
+block content 
+
+  .container
+    .text-center.mt-5
+      h1 로그인
+      form(action='/auth/login' method='post')
+        p
+          input(type='text', name='username' placeholder='id')
+        p
+          input(type='password', name='password' placeholder='password')
+        p
+          input(type='submit')
+
