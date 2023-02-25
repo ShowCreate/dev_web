@@ -6,16 +6,16 @@ html
         link(rel='stylesheet' href='/stylesheets/style.css')
     body 
         h1= title 
-        form(action="/board/edit" method="post")
+        form(action=`/board/edit/${topic.idx}` method="post")
                 table(border="1")
                     tr 
                         td 제목
                         td 
-                            input(type="text" name="title" id="title")
+                            input(type="text" name="title" id="title" placeholder=topic.title)
                     tr 
                         td 내용
                         td
-                            textarea(name="content" id="content" cols="30" rows="10")
+                            textarea(name="content" id="content" cols="30" rows="10" placeholder=topic.content)
                     tr 
                         td(colspan="2")
                             button(type="submit") 글쓰기

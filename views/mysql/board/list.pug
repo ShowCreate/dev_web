@@ -15,8 +15,9 @@ html
                 td 조회수
 
             - for (var i = (page * page_num) - page_num; i < (page * page_num); i++) 
-                - if (i > length) i++
-                - else var data = rows[i]
+                if (i > length)
+                else 
+                    - var data = rows[i]
                     tr 
                         td= i + 1
                         td

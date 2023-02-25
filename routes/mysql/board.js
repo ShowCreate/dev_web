@@ -41,58 +41,83 @@ module.exports = function() {
     // 글 읽기(Read)
     route.get('/read/:idx', function(req, res) {
         let idx = req.params.idx;
-
+        
         let sql = "UPDATE board SET view = view + 1 WHERE idx=?";
-        connection.query(sql,[idx], function(err, row) {});
+        connection.query(sql,[idx], function(err, results) {});
 
-        sql = "SELECT idx, name, title, content, date_format(modidate,'%Y-%m-%d %H:%i:%s') modidate, " +
+        let sql1 = "SELECT idx, name, title, content, date_format(modidate,'%Y-%m-%d %H:%i:%s') modidate, " +
         "date_format(regdate,'%Y-%m-%d %H:%i:%s') regdate, view FROM board WHERE idx=?";
-        connection.query(sql, [idx], function(err, row) {
+        connection.query(sql1, [idx], function(err, results) {
             if(err) {
                 console.log(err);
             }
-            res.render('board/read', {title: "글 보기", row: row[0]});
+            res.render('board/read', {title: "글 보기", row: results[0]});
         });
     });
 
     
     // 글 수정(Update)
-    route.post('/edit',function(req,res) {
+    route.get('/edit/:idx', function(req, res) {
+        let sql = 'SELECT idx, title FROM board';
+        connection.query(sql, function(err, topics, fields) {
+            let idx = req.params.idx;
+            let sql = 'SELECT * FROM board WHERE idx=?';
+            connection.query(sql, [idx], function(err, topic, fields) {
+                if (err) { 
+                    console.log(err);
+                    res.status(500).send('Internal Server Error');
+                }
+                else {
+                    res.render('board/edit', {topics: topics, topic: topic[0]});
+                }
+            });
+        });
+    });
+
+    route.post('/edit/:idx',function(req,res) {
+        let idx = req.params.idx;
         let title = req.body.title;
         let content = req.body.content;
 
-        let sql = "UPDATE board SET (title, content, modidate) VALUES (?,?,now())";
-        connection.query(sql,[title, content], function(err, result)
+        let sql = "UPDATE board SET title=?, content=?, modidate=now() WHERE idx=?";
+        connection.query(sql,[title, content,idx], function(err, result)
         {
             if(err) {
                 console.log(err);
             }
-            res.render('/board/read/'+idx);
+            res.redirect('/board/read/'+idx);
         });
     });
     
     // 글 삭제(Delete)
-    route.get('/delete', function(req, res) {
-        let idx = req.params.idx;
-
-        let sql = "SELECT idx, title FROM board WHERE idx=?"
-        connection.query(sql, [idx], function(err, row) {
-            if(err) {
-                console.log(err);
-            }
-            res.render('board/delete', {title: "글 삭제", row: row[0]});    
+    route.get('/delete/:idx', function(req, res) {
+        let sql = 'SELECT idx, title FROM board';
+        connection.query(sql, function(err, topics, fields) {
+            let idx = req.params.idx;
+            let sql = 'SELECT * FROM board WHERE idx=?';
+            connection.query(sql, [idx], function(err, topic) {
+                if (err) { 
+                    console.log(err);
+                    res.status(500).send('Internal Server Error');
+                }
+                else {
+                    if (topic.length === 0) {
+                        console.log('There is no record');
+                        res.status(500).send('Internal Server Error');
+                    }
+                    else {   
+                        res.render('board/delete', {topics: topics, topic: topic[0]});
+                    }
+                }
+            });
         });
-    }); 
+    });
 
-    route.post('/delete',function(req, res) {
+    route.post('/delete/:idx', function(req, res) {
         let idx = req.params.idx;
-
-        let sql = "DELETE FROM board WHERE idx=?";
-        connection.query(sql, [idx], function(err, result) {
-            if(err) {
-                console.log(err);
-            }
-            res.redirect('/board/list/');
+        let sql = 'DELETE FROM board WHERE idx=?';
+        connection.query(sql, [idx], function(err, results) {
+            res.redirect('/board/list');
         });
     });
 
