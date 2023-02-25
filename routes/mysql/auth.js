@@ -40,11 +40,11 @@ module.exports = function(passport) {
             phoneNumber: req.body.phoneNumber,
             address: req.body.address
         }
-        let sql = 'INSERT INTO users SET ?';
-        connection.query(sql, [user], function(err, results) {
+        let sql1 = 'INSERT INTO users SET ?';
+        connection.query(sql1, [user], function(err, results) {
             if (err) {
                 console.log(err);
-                res.status(500);    
+                res.render('auth/account', {error: '이미 등록된 사용자입니다.'});
             }
             else {
                 req.login(user, function(err) {

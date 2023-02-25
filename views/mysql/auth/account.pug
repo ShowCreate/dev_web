@@ -4,6 +4,7 @@ block content
   .container
     .text-center.mt-5
       h1 회원가입
+      = error
       form(action='/auth/account' method='post')
         p
           input(type='text', name='username' placeholder='id')
@@ -17,5 +18,3 @@ block content
           input(type='text', name='address' placeholder='주소')
         p
           input(type='submit')
-
-        

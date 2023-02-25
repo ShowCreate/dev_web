@@ -32,13 +32,15 @@ module.exports = function(app) {
             let pwd = password;
             let sql = 'SELECT * FROM users WHERE authId=?';
             connection.query(sql, ['local:'+uname], function(err, results) {
-                if (err) {
-                    return done('There is no user.');
-                }
                 let user = results[0];
-                if (crypto.pbkdf2Sync(pwd, user.salt, 3, 64, 'sha256').toString('hex') === user.password) {
-                    console.log('LocalStrategy', user);
-                    done(null, user);
+                if(user) {
+                    if (crypto.pbkdf2Sync(pwd, user.salt, 3, 64, 'sha256').toString('hex') === user.password) {
+                        console.log('LocalStrategy', user);
+                        done(null, user);
+                    }
+                    else {
+                        done(null, false);
+                    }    
                 }
                 else {
                     done(null, false);
